@@ -16,7 +16,7 @@ Map(function(u, d) download.file(u, d, mode="wb"), link, destinos)
 
 
 cauc <- fread("CAUC.csv", skip = 3, header = TRUE, sep = ";", encoding = "Latin-1") 
-file.remove("CAUC.csv")
+#file.remove("CAUC.csv")
 
 cauc <- cauc |> 
   filter(UF == "SE") |> 
