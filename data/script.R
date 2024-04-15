@@ -39,6 +39,13 @@ cauc <- cauc |>
              names_to = "Exigência", 
              values_to = "Valor")
 
+cauc <- cauc |> 
+  filter(Valor != 'Desabilitado') |> 
+  mutate(Cumprimento = ifelse(Valor == '!', 'A comprovar', 'Comprovado'),
+         Valor = str_replace(Valor, '!', '-')) |> 
+  rename(`Validade da informação` = Valor) |> 
+  relocate(`Validade da informação`, .after = last_col())
+
 
 saveRDS(cauc, 'data/cauc.rds')
 
