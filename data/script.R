@@ -28,14 +28,14 @@ municipios <- read.csv2('data/municipios.csv')
 
 cauc <- municipios |> 
   left_join(cauc, by ='cod_ibge') |> 
-  select(-c(UF, `Nome do Ente Federado`, `Código SIAFI`, Região, População, Fonte))
+  select(-c(Município, UF, `Nome do Ente Federado`, `Código SIAFI`, Região, População, Fonte))
 
 
 codigos_cauc <- read_excel('data/codigos CAUC.xlsx')
 
 cauc <- cauc |> 
   rename_with(~ codigos_cauc$Exigência[match(., codigos_cauc$Código)], matches(codigos_cauc$Código))  |> 
-  pivot_longer(cols = -c(Município, cod_ibge), 
+  pivot_longer(cols = -cod_ibge, 
              names_to = "Exigência", 
              values_to = "Valor")
 
