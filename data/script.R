@@ -24,14 +24,14 @@ cauc <- cauc |>
   rename(cod_ibge = `Código IBGE`)
 
 
-municipios <- read.csv2('municipios.csv')
+municipios <- read.csv2('data/municipios.csv')
 
 cauc <- municipios |> 
   left_join(cauc, by ='cod_ibge') |> 
   select(-c(UF, `Nome do Ente Federado`, `Código SIAFI`, Região, População, Fonte))
 
 
-codigos_cauc <- read_excel('codigos CAUC.xlsx')
+codigos_cauc <- read_excel('data/codigos CAUC.xlsx')
 
 cauc <- cauc |> 
   rename_with(~ codigos_cauc$Exigência[match(., codigos_cauc$Código)], matches(codigos_cauc$Código))  |> 
